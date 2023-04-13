@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import copy
 
 data=pd.read_csv('prueba.csv')
 print(data)
@@ -37,16 +38,43 @@ globalcaim=0
 k=1
 print("D:")
 print(d)
+baux=copy.deepcopy(b)
+
 
 for elemento in b:
     #agrega siguiente elemento de b
+    #print(daux)
     daux.pop()
+    #print(daux)
     daux.append(elemento)
+    #print(daux)
     daux.append(dn)
+    #print(daux)
+
+    print()
     print("B:")
     print(daux)
     d=[]
     for indice in range(len(daux)-1):
         d.append([daux[indice],daux[indice+1]])    
-    print("D:")
-    print(d)
+    #print("D:")
+    #print(d)
+    #print(len(d))
+    
+
+    for j in range(len(d)-1):
+        #print("j")
+        #print(j)
+        try:
+            ind=d[j].index(elemento)
+            for x in baux:
+                
+                #print(ind)
+                d[j][ind]=x
+                d[j+1][ind-1]=x
+                print("D:")
+                print(d)
+
+        except:
+            continue
+    baux.pop(0)
