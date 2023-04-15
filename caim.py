@@ -46,6 +46,7 @@ print(d)
 x=[]
 x.append(b)
 k=1
+#for z in range(1):
 for z in range(len(b)):
     
     products=x[0]
@@ -74,6 +75,35 @@ for z in range(len(b)):
             print("D:")
             print(d)
             #aqui se creara matriz quanta y se calculara caim
+
+            quanta=np.zeros((len(clas),len(d)+1))
+            for i in range(len(clas)):
+                quanta[i][0]=clas[i]
+            #print(quanta)
+
+            for indice in range(len(dv)):
+                cl=data.iloc[indice]['clase']
+                #print(cl)
+                v=data.iloc[indice]['valor']
+                #print(v)
+                
+                for classe in range(len(clas)):
+                    if cl==quanta[classe][0]:
+                        for intervalo in range(len(d)):
+                            lims=d[intervalo]
+                            liminf=lims[0]
+                            limsup=lims[1]
+                            #print("limites:")
+                            #print(liminf)
+                            #print(limsup)
+                            if intervalo==0:
+                                if liminf<=v and v<=limsup:
+                                    quanta[classe][intervalo+1]+=1
+                            
+                            else:
+                                if liminf<v and v<=limsup:
+                                    quanta[classe][intervalo+1]+=1
+            print(quanta)
     
     popaux=copy.deepcopy(x[z])
     #elimina el ultimo elemento de cada tupla
