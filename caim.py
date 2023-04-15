@@ -7,7 +7,7 @@ def duplicado(nums):
     dup = [x for i, x in enumerate(nums) if x in nums[:i]]
     return dup
 
-data=pd.read_csv('prueba.csv')
+data=pd.read_csv('iris.csv')
 #print(data)
 
 names=data.columns.values
@@ -30,7 +30,7 @@ for numero in range(len(data)):
         #print()
         if data[names[-1]][numero]==lclas[nombre]:
            data[names[-1]][numero]=nombre
-           print(data[names[-1]][numero])
+           #print(data[names[-1]][numero])
 
 print(data) 
 
@@ -40,9 +40,12 @@ for atributo in range(len(names)-1):
     dataordenada=data.sort_values(names[atributo])
     #print(dataordenada)
 
-    dv=list(dataordenada[names[atributo]])
+    da=list(dataordenada[names[atributo]])
+    print(da)
+    dv=list(set(da))
+    dv.sort()
     #print("Lista ordenada de valores:")
-    #print(dv)
+    print(dv)
     clases=list(dataordenada[names[-1]])
     clas=list(set(clases)) #crea lista de valores de clase unicos
     #print("Clases:")
@@ -57,8 +60,9 @@ for atributo in range(len(names)-1):
         b.append(dv[i])
         b.append((dv[i]+dv[i+1])/2)
     b.append(dv[-1])
-    #print("B:")
-    #print(b)
+    print("B:")
+    print(b)
+
     b.pop(0)
     b.pop()
 
