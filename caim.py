@@ -23,16 +23,9 @@ print(lclas)
 
 for numero in range(len(data)):
     for nombre in range(len(lclas)):
-        #print(data[names[-1]][numero])
-        #print()
-        #print(names[nombre])
-        #print(numero)
-        
-        #print(nombre)
-        #print()
         if data[names[-1]][numero]==lclas[nombre]:
            data[names[-1]][numero]=nombre
-           #print(data[names[-1]][numero])
+           break
 
 #print(data) 
 
@@ -67,8 +60,6 @@ for atributo in range(len(names)-1):
 
     b.pop(0)
     b.pop()
-
-    #print()
 
     daux=[d0,dn]
     d=[[d0,dn]]
@@ -105,25 +96,19 @@ for atributo in range(len(names)-1):
                 for element in tupla:
                     daux.append(element)
                 daux.append(dn)
-                #print("daux")
-                #print(daux)
                 d=[]
                 for indice in range(len(daux)-1):
                     d.append([daux[indice],daux[indice+1]])    
                 #print("D:")
                 #print(d)
-                #aqui se creara matriz quanta y se calculara caim
 
                 quanta=np.zeros((len(clas),len(d)+1))
                 for i in range(len(clas)):
                     quanta[i][0]=clas[i]
-                #print(quanta)
 
                 for indice in range(len(dv)):
                     cl=data.iloc[indice][names[-1]]
-                    #print(cl)
                     v=data.iloc[indice][names[atributo]]
-                    #print(v)
                     
                     for classe in range(len(clas)):
                         if cl==quanta[classe][0]:
@@ -131,20 +116,20 @@ for atributo in range(len(names)-1):
                                 lims=d[intervalo]
                                 liminf=lims[0]
                                 limsup=lims[1]
-                                #print("limites:")
-                                #print(liminf)
-                                #print(limsup)
                                 if intervalo==0:
                                     if liminf<=v and v<=limsup:
                                         quanta[classe][intervalo+1]+=1
+                                        break
                                 
                                 else:
                                     if liminf<v and v<=limsup:
                                         quanta[classe][intervalo+1]+=1
+                                        break
                 quanta=np.delete(quanta,0,axis=1)
                 #print("Quanta:")
                 #print(quanta)
-                sr=np.sum(quanta, axis=1) #suma renglon
+
+                #sr=np.sum(quanta, axis=1) #suma renglon
                 sc=np.sum(quanta, axis=0) #suma columna
                 maximos=np.argmax(quanta,axis=0) #indice donde se encuentra el valor mas grande
             
@@ -169,12 +154,30 @@ for atributo in range(len(names)-1):
         popaux.pop(0)
         x.append(popaux)
         
-        k+=1  #agregar funcion de paro de k<s  
+        k+=1  
 
     print("El mejor intervalo de discretización es:")
     print(mejorcaim)
     
+    for ejemplo in range(len(data)):
+        valor=data[names[atributo]][ejemplo]
+        for rango in range(len(mejorcaim)):
+            limites=mejorcaim[rango]
+            inf=limites[0]
+            sup=limites[1]
 
+            if rango==0:
+               if inf<=valor and valor<=sup:
+                    data[names[atributo]][ejemplo]=rango
+                    break
+
+            else:
+                if inf<valor and valor<=sup:
+                    data[names[atributo]][ejemplo]=rango
+                    break
+
+print("La data discretizada es:")
+print(data)
 print("El tiempo de ejecución es:")
 fin=time.time()
 print(fin-inicio)
