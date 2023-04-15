@@ -46,8 +46,13 @@ print(d)
 x=[]
 x.append(b)
 k=1
+
+mejorcaim=[]
+globalcaim=0
 #for z in range(1):
 for z in range(len(b)):
+    if k>len(clas):
+        break
     
     products=x[0]
     for i in range(len(x)-1):
@@ -72,8 +77,8 @@ for z in range(len(b)):
             d=[]
             for indice in range(len(daux)-1):
                 d.append([daux[indice],daux[indice+1]])    
-            print("D:")
-            print(d)
+            #print("D:")
+            #print(d)
             #aqui se creara matriz quanta y se calculara caim
 
             quanta=np.zeros((len(clas),len(d)+1))
@@ -103,7 +108,24 @@ for z in range(len(b)):
                             else:
                                 if liminf<v and v<=limsup:
                                     quanta[classe][intervalo+1]+=1
-            print(quanta)
+            quanta=np.delete(quanta,0,axis=1)
+            #print("Quanta:")
+            #print(quanta)
+            sr=np.sum(quanta, axis=1) #suma renglon
+            sc=np.sum(quanta, axis=0) #suma columna
+            maximos=np.argmax(quanta,axis=0) #indice donde se encuentra el valor mas grande
+           
+            suma=0   
+            for i in range(len(d)-1):
+                if sc[i]!=0:
+                    suma=suma+((quanta[i][maximos[i]]**2)/sc[i])
+            caim=suma/len(d)
+            #print("Caim:")
+            #print(caim)
+
+            if caim>globalcaim:
+                globalcaim=copy.deepcopy(caim)
+                mejorcaim=copy.deepcopy(d)
     
     popaux=copy.deepcopy(x[z])
     #elimina el ultimo elemento de cada tupla
@@ -115,3 +137,7 @@ for z in range(len(b)):
     x.append(popaux)
     
     k+=1  #agregar funcion de paro de k<s  
+
+print("El mejor intervalo de discretización es:")
+print(mejorcaim)
+print(globalcaim)
