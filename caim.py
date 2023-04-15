@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import copy
 import itertools
+import time
+inicio=time.time()
 
 def duplicado(nums):
     dup = [x for i, x in enumerate(nums) if x in nums[:i]]
@@ -32,7 +34,7 @@ for numero in range(len(data)):
            data[names[-1]][numero]=nombre
            #print(data[names[-1]][numero])
 
-print(data) 
+#print(data) 
 
 for atributo in range(len(names)-1):
     print(names[atributo])
@@ -41,11 +43,11 @@ for atributo in range(len(names)-1):
     #print(dataordenada)
 
     da=list(dataordenada[names[atributo]])
-    print(da)
+    #print(da)
     dv=list(set(da))
     dv.sort()
     #print("Lista ordenada de valores:")
-    print(dv)
+    #print(dv)
     clases=list(dataordenada[names[-1]])
     clas=list(set(clases)) #crea lista de valores de clase unicos
     #print("Clases:")
@@ -60,8 +62,8 @@ for atributo in range(len(names)-1):
         b.append(dv[i])
         b.append((dv[i]+dv[i+1])/2)
     b.append(dv[-1])
-    print("B:")
-    print(b)
+    #print("B:")
+    #print(len(b))
 
     b.pop(0)
     b.pop()
@@ -82,7 +84,7 @@ for atributo in range(len(names)-1):
     globalcaim=0
     #for z in range(1):
     for z in range(len(b)):
-        if k>len(clas):
+        if k>=len(clas):
             break
         
         products=x[0]
@@ -171,3 +173,8 @@ for atributo in range(len(names)-1):
 
     print("El mejor intervalo de discretización es:")
     print(mejorcaim)
+    
+
+print("El tiempo de ejecución es:")
+fin=time.time()
+print(fin-inicio)
