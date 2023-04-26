@@ -168,16 +168,23 @@ for atributo in range(len(names)-1):
 
             if rango==0:
                if inf<=valor and valor<=sup:
-                    data[names[atributo]][ejemplo]=rango
+                    data[names[atributo]][ejemplo]='clase'+str(rango)
                     break
 
             else:
                 if inf<valor and valor<=sup:
-                    data[names[atributo]][ejemplo]=rango
+                    data[names[atributo]][ejemplo]='clase'+str(rango)
                     break
+
+for numero in range(len(data)):
+    for nombre in range(len(lclas)):
+        if data[names[-1]][numero]==nombre:
+           data[names[-1]][numero]=lclas[nombre]
+           break
 
 print("La data discretizada es:")
 print(data)
 print("El tiempo de ejecución es:")
 fin=time.time()
 print(fin-inicio)
+data.to_csv('pruebanew.csv')
